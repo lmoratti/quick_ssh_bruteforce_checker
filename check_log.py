@@ -13,8 +13,8 @@ def check_bruteforce(file: str, pattern: str) -> dict:
     
     with open(file, 'r') as f: # helps avoid lock issues https://stackoverflow.com/questions/21275836/if-youre-opening-a-file-using-the-with-statement-do-you-still-need-to-close
         for line in f:
-            
             match = re.search(pattern,line)
+            
             if match:
                 username = match.group(1)
                 
@@ -27,8 +27,8 @@ def check_bruteforce(file: str, pattern: str) -> dict:
 pattern = r"Failed password for invalid user ([\w.-]+)" #decided to try to use groups to learn the regex syntax a bit better
 attempts_and_users = check_bruteforce("OpenSSH_2k.log", pattern)
 
-for key, value in attempts_and_users.items():
-    print(f"Username: {key} had {value} invalid password attempts.")
+for username, attempts in attempts_and_users.items():
+    print(f"Username: {username} had {attempts} invalid password attempts.")
     
 
 
